@@ -15,7 +15,8 @@ type User = {
 // APIからユーザーデータを取得する関数
 async function getUsers(): Promise<User[]> {
   try {
-    const response = await fetch('http://localhost:5001/api/users', {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
+    const response = await fetch(`${API_URL}/users`, {
       next: { revalidate: 60 } // 60秒ごとにキャッシュを更新
     });
     
