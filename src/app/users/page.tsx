@@ -16,8 +16,12 @@ type User = {
 async function getUsers(): Promise<User[]> {
   try {
     const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
+    console.log('Fetching users from:', API_URL);
     const response = await fetch(`${API_URL}/users`, {
-      next: { revalidate: 60 } // 60秒ごとにキャッシュを更新
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
     
     if (!response.ok) {
