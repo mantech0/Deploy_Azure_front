@@ -15,7 +15,7 @@ type User = {
 // APIからユーザーデータを取得する関数
 async function getUsers(): Promise<User[]> {
   try {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
     console.log('Fetching users from:', API_URL);
     const response = await fetch(`${API_URL}/users`, {
       cache: 'no-store',
