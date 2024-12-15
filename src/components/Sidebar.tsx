@@ -28,7 +28,7 @@ export default function Sidebar({ currentPath }: SidebarProps) {
               }`}
             >
               <span className="text-xl">👥</span>
-              <span>登録者検索</span>
+              <span>登録者一覧</span>
             </Link>
           </li>
           <li>
