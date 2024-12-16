@@ -24,8 +24,10 @@ type SearchParams = {
 // APIからユーザーデータを取得する関数
 async function getUsers(): Promise<User[]> {
   try {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
-    const response = await fetch(`${API_URL}/api/users`, {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
+    console.log('Fetching users from:', API_URL);
+    
+    const response = await fetch(`${API_URL}/users`, {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json'
@@ -33,10 +35,13 @@ async function getUsers(): Promise<User[]> {
     });
     
     if (!response.ok) {
+      console.error('API response status:', response.status);
+      console.error('API response text:', await response.text());
       throw new Error('Failed to fetch users');
     }
 
     const users = await response.json();
+    console.log('Fetched users:', users);
     return users;
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -67,7 +72,7 @@ function filterUsers(users: User[], params: SearchParams): User[] {
   });
 }
 
-// 検索フォームと結果の表示を統合
+// 検索フォームと���果の表示を統合
 export default async function UsersPage({ searchParams }: { searchParams: SearchParams }) {
   const users = await getUsers();
   const filteredUsers = filterUsers(users, searchParams);
