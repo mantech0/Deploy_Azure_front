@@ -17,11 +17,31 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '18'
+        cache: 'npm'
 
-    - name: npm install and build
+    - name: Cache node modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Clean install dependencies
+      run: npm ci
+
+    - name: Build
       run: |
-        npm install
         npm run build
+        rm -rf node_modules/.cache
+
+    - name: Prepare for deployment
+      run: |
+        rm -rf node_modules/
+        npm ci --production
+        rm -rf .git/
+        rm -rf .github/
+        rm -rf .next/cache/
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
