@@ -26,6 +26,6 @@ jobs:
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'tech0-gen-8-step3-testapp-next-26'
+        app-name: 'tech0-gen-8-step3-testapp-node2-26'
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9D2D3C30FC91448E858AB9AEFF00378B }}
         package: .
