@@ -24,10 +24,10 @@ type SearchParams = {
 // APIからユーザーデータを取得する関数
 async function getUsers(): Promise<User[]> {
   try {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
     console.log('Fetching users from:', API_URL);
     
-    const response = await fetch(`${API_URL}/users`, {
+    const response = await fetch(`${API_URL}/api/users`, {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json'
@@ -72,7 +72,7 @@ function filterUsers(users: User[], params: SearchParams): User[] {
   });
 }
 
-// 検索フォームと���果の表示を統合
+// 検索フォームと結果の表示を統合
 export default async function UsersPage({ searchParams }: { searchParams: SearchParams }) {
   const users = await getUsers();
   const filteredUsers = filterUsers(users, searchParams);
