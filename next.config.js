@@ -1,13 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:5001/api/:path*',
-      },
-    ]
-  },
+  // 本番環境では環境変数を使用してAPIリクエストを処理するため、
+  // リライトルールは不要です
 }
 
 module.exports = nextConfig
