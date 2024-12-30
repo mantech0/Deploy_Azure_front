@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 本番環境では環境変数を使用してAPIリクエストを処理するため、
-  // リライトルールは不要です
+  env: {
+    BACKEND_URL: process.env.BACKEND_URL || 'http://localhost:8181'
+  },
+  output: 'standalone'
 }
 
 module.exports = nextConfig
